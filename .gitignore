@@ -1,29 +1,67 @@
-# Python
-__pycache__/
-*.py[cod]
-.python-version
-*.egg-info/
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
 dist/
 build/
-.env
-.venv/
-venv/
+*.tsbuildinfo
+
+# Coverage reports
+coverage/
+*.lcov
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
 
 # Logs
+logs
 *.log
-*.logs
 
-# IDEs
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE files
 .vscode/
 .idea/
-
-# System
-.DS_Store
 *.swp
 *.swo
+*~
 
-# Project-specific
-/rituals/reconstructions/*.log
-/autosync/*.tmp
-coverage_report/
-coverage.svg
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+
+# Test artifacts
+.nyc_output
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Sherlock Ω specific
+.sherlock/
+*.sherlock-cache

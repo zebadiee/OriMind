@@ -1,110 +1,397 @@
-## Contributing to Spec Kit
+# Contributing to Sherlock Ω Quantum Bot System
 
-Hi there! We're thrilled that you'd like to contribute to Spec Kit. Contributions to this project are [released](https://help.github.com/articles/github-terms-of-service/#6-contributions-under-repository-license) to the public under the [project's open source license](LICENSE).
+Welcome to the Sherlock Ω Quantum Bot System! We're excited to have you contribute to making quantum computing more accessible through natural language interfaces.
 
-Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+## 🌟 **Getting Started**
 
-## Prerequisites for running and testing code
+### Prerequisites
+- Node.js 18+ 
+- npm 9+
+- TypeScript 5.0+
+- Basic understanding of quantum computing concepts (helpful but not required!)
 
-These are one time installations required to be able to test your changes locally as part of the pull request (PR) submission process.
+### Development Setup
 
-1. Install [Python 3.11+](https://www.python.org/downloads/)
-1. Install [uv](https://docs.astral.sh/uv/) for package management
-1. Install [Git](https://git-scm.com/downloads)
-1. Have an [AI coding agent available](README.md#-supported-ai-agents)
+```bash
+# Clone the repository
+git clone https://github.com/zebadiee/Sherlock-omega-ide.git
+cd Sherlock-omega-ide
 
-## Submitting a pull request
+# Install dependencies
+npm install
 
->[!NOTE]
->If your pull request introduces a large change that materially impacts the work of the CLI or the rest of the repository (e.g., you're introducing new templates, arguments, or otherwise major changes), make sure that it was **discussed and agreed upon** by the project maintainers. Pull requests with large changes that did not have a prior conversation and agreement will be closed.
+# Install quantum computing libraries
+npm install quantum-circuit
 
-1. Fork and clone the repository
-1. Configure and install the dependencies: `uv sync`
-1. Make sure the CLI works on your machine: `uv run specify --help`
-1. Create a new branch: `git checkout -b my-branch-name`
-1. Make your change, add tests, and make sure everything still works
-1. Test the CLI functionality with a sample project if relevant
-1. Push to your fork and submit a pull request
-1. Wait for your pull request to be reviewed and merged.
+# Build the project
+npm run build
 
-Here are a few things you can do that will increase the likelihood of your pull request being accepted:
+# Run tests
+npm test
 
-- Follow the project's coding conventions.
-- Write tests for new functionality.
-- Update documentation (`README.md`, `spec-driven.md`) if your changes affect user-facing features.
-- Keep your change as focused as possible. If there are multiple changes you would like to make that are not dependent upon each other, consider submitting them as separate pull requests.
-- Write a [good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
-- Test your changes with the Spec-Driven Development workflow to ensure compatibility.
+# Start development
+npm run dev
+```
 
-## Development workflow
+## 🎯 **How to Contribute**
 
-When working on spec-kit:
+### 1. **Quantum Algorithm Implementations**
+We're always looking for new quantum algorithms to add to our bot builder!
 
-1. Test changes with the `specify` CLI commands (`/specify`, `/plan`, `/tasks`) in your coding agent of choice
-2. Verify templates are working correctly in `templates/` directory
-3. Test script functionality in the `scripts/` directory
-4. Ensure memory files (`memory/constitution.md`) are updated if major process changes are made
+**Current algorithms supported:**
+- Bell State Generation
+- Grover's Search Algorithm
+- QAOA (Quantum Approximate Optimization Algorithm)
+- Basic VQE (Variational Quantum Eigensolver)
 
-## AI contributions in Spec Kit
+**How to add a new algorithm:**
 
-> [!IMPORTANT]
->
-> If you are using **any kind of AI assistance** to contribute to Spec Kit,
-> it must be disclosed in the pull request or issue.
+```typescript
+// In src/ai/quantum/quantum-bot-builder.ts
+private generateNewAlgorithmGates(qubits: number): QuantumGate[] {
+  const gates: QuantumGate[] = [];
+  
+  // Your algorithm implementation here
+  // Example: Quantum Fourier Transform
+  for (let i = 0; i < qubits; i++) {
+    gates.push({
+      name: `H_${i}`,
+      type: GateType.H,
+      qubits: [i],
+      description: `Hadamard gate for QFT`
+    });
+  }
+  
+  return gates;
+}
+```
 
-We welcome and encourage the use of AI tools to help improve Spec Kit! Many valuable contributions have been enhanced with AI assistance for code generation, issue detection, and feature definition.
+### 2. **Educational Content**
+Help make quantum computing more accessible!
 
-That being said, if you are using any kind of AI assistance (e.g., agents, ChatGPT) while contributing to Spec Kit,
-**this must be disclosed in the pull request or issue**, along with the extent to which AI assistance was used (e.g., documentation comments vs. code generation).
+**Areas where we need help:**
+- Interactive quantum tutorials
+- Quantum concept explanations
+- Code examples and demos
+- Visualization improvements
 
-If your PR responses or comments are being generated by an AI, disclose that as well.
+**Example tutorial contribution:**
 
-As an exception, trivial spacing or typo fixes don't need to be disclosed, so long as the changes are limited to small parts of the code or short phrases.
+```typescript
+// In src/ai/quantum/quantum-tutorials.ts
+export const quantumTeleportationTutorial = {
+  title: 'Quantum Teleportation',
+  level: 'intermediate',
+  sections: [
+    {
+      title: 'Introduction',
+      content: 'Quantum teleportation allows transferring quantum states...',
+      codeExamples: [
+        {
+          title: 'Teleportation Circuit',
+          code: `
+const circuit = new QuantumCircuit(3);
+// Alice's qubit preparation
+circuit.addGate('h', 1);
+circuit.addGate('cx', 1, 2);
+// Bell measurement
+circuit.addGate('cx', 0, 1);
+circuit.addGate('h', 0);
+          `,
+          language: 'typescript'
+        }
+      ]
+    }
+  ]
+};
+```
 
-An example disclosure:
+### 3. **Natural Language Processing**
+Improve how we parse quantum descriptions!
 
-> This PR was written primarily by GitHub Copilot.
+**Current NLP features:**
+- Quantum keyword detection
+- Algorithm type inference
+- Qubit count extraction
+- Gate sequence generation
 
-Or a more detailed disclosure:
+**How to improve NLP:**
 
-> I consulted ChatGPT to understand the codebase but the solution
-> was fully authored manually by myself.
+```typescript
+// In src/ai/core/enhanced-bot-builder.ts
+private detectQuantumFeatures(description: string): boolean {
+  const quantumKeywords = [
+    'quantum', 'qubit', 'superposition', 'entanglement',
+    // Add more keywords here!
+    'decoherence', 'fidelity', 'tomography'
+  ];
+  
+  return quantumKeywords.some(keyword => description.includes(keyword));
+}
+```
 
-Failure to disclose this is first and foremost rude to the human operators on the other end of the pull request, but it also makes it difficult to
-determine how much scrutiny to apply to the contribution.
+### 4. **Testing & Quality Assurance**
+Help us maintain high code quality!
 
-In a perfect world, AI assistance would produce equal or higher quality work than any human. That isn't the world we live in today, and in most cases
-where human supervision or expertise is not in the loop, it's generating code that cannot be reasonably maintained or evolved.
+**Testing guidelines:**
+- Aim for 95%+ test coverage
+- Include both unit and integration tests
+- Test quantum simulations with known results
+- Add performance benchmarks
 
-### What we're looking for
+**Example test contribution:**
 
-When submitting AI-assisted contributions, please ensure they include:
+```typescript
+// In src/ai/core/__tests__/quantum-algorithms.test.ts
+describe('Quantum Fourier Transform', () => {
+  test('should generate correct QFT circuit', async () => {
+    const builder = new EnhancedBotBuilder(logger, monitor);
+    const qftBot = await builder.buildQuantumBot('Create QFT circuit for 3 qubits');
+    
+    const result = await qftBot.simulateCircuit('3-qubit QFT');
+    
+    // Verify QFT properties
+    expect(result.probabilities).toBeDefined();
+    expect(Object.keys(result.probabilities)).toHaveLength(8); // 2^3 states
+  });
+});
+```
 
-- **Clear disclosure of AI use** - You are transparent about AI use and degree to which you're using it for the contribution
-- **Human understanding and testing** - You've personally tested the changes and understand what they do
-- **Clear rationale** - You can explain why the change is needed and how it fits within Spec Kit's goals  
-- **Concrete evidence** - Include test cases, scenarios, or examples that demonstrate the improvement
-- **Your own analysis** - Share your thoughts on the end-to-end developer experience
+### 5. **Documentation**
+Help others understand and use the system!
 
-### What we'll close
+**Documentation needs:**
+- API documentation improvements
+- Tutorial writing
+- Example code snippets
+- Troubleshooting guides
 
-We reserve the right to close contributions that appear to be:
+## 🚀 **Development Workflow**
 
-- Untested changes submitted without verification
-- Generic suggestions that don't address specific Spec Kit needs
-- Bulk submissions that show no human review or understanding
+### Branch Strategy
+- `main` - Production-ready code
+- `develop` - Integration branch for new features
+- `feature/quantum-algorithm-name` - Feature branches
+- `fix/issue-description` - Bug fix branches
 
-### Guidelines for success
+### Commit Messages
+We use conventional commits:
 
-The key is demonstrating that you understand and have validated your proposed changes. If a maintainer can easily tell that a contribution was generated entirely by AI without human input or testing, it likely needs more work before submission.
+```
+feat(quantum): add Quantum Fourier Transform algorithm
+fix(builder): resolve circuit depth calculation bug
+docs(tutorial): add Bell state explanation
+test(registry): add FOSS export/import tests
+```
 
-Contributors who consistently submit low-effort AI-generated changes may be restricted from further contributions at the maintainers' discretion.
+### Pull Request Process
 
-Please be respectful to maintainers and disclose AI assistance.
+1. **Fork the repository**
+2. **Create a feature branch** from `develop`
+3. **Make your changes** with tests
+4. **Run the full test suite**: `npm test`
+5. **Update documentation** if needed
+6. **Submit a pull request** with:
+   - Clear description of changes
+   - Link to related issues
+   - Screenshots/demos if applicable
 
-## Resources
+### Code Review Guidelines
 
-- [Spec-Driven Development Methodology](./spec-driven.md)
-- [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/)
-- [Using Pull Requests](https://help.github.com/articles/about-pull-requests/)
-- [GitHub Help](https://help.github.com)
+**For reviewers:**
+- Check for quantum algorithm correctness
+- Verify test coverage
+- Ensure documentation is updated
+- Test the changes locally
+
+**For contributors:**
+- Be responsive to feedback
+- Keep PRs focused and small
+- Include tests for new features
+- Update documentation
+
+## 🧪 **Testing Guidelines**
+
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run quantum-specific tests
+npm test -- --testPathPattern="quantum|enhanced"
+
+# Run with coverage
+npm test -- --coverage
+
+# Run specific test file
+npm test src/ai/core/__tests__/enhanced-bot-builder.test.ts
+```
+
+### Writing Tests
+
+**Test structure:**
+```typescript
+describe('QuantumFeature', () => {
+  let builder: EnhancedBotBuilder;
+  
+  beforeEach(() => {
+    // Setup
+  });
+  
+  afterEach(async () => {
+    // Cleanup
+  });
+  
+  test('should do something quantum', async () => {
+    // Test implementation
+  });
+});
+```
+
+**Quantum testing best practices:**
+- Test with known quantum states (Bell states, GHZ states)
+- Verify probability distributions
+- Check entanglement properties
+- Test edge cases (0 qubits, large circuits)
+
+## 🌐 **Community Guidelines**
+
+### Code of Conduct
+- Be respectful and inclusive
+- Help newcomers to quantum computing
+- Share knowledge and resources
+- Give constructive feedback
+- Celebrate contributions of all sizes
+
+### Communication Channels
+- **GitHub Issues** - Bug reports and feature requests
+- **GitHub Discussions** - General questions and ideas
+- **Pull Requests** - Code contributions and reviews
+
+### Recognition
+We recognize contributors in several ways:
+- Contributor list in README
+- Release notes mentions
+- Special recognition for major contributions
+- Invitation to maintainer team for consistent contributors
+
+## 🎓 **Learning Resources**
+
+### Quantum Computing Basics
+- [Qiskit Textbook](https://qiskit.org/textbook/)
+- [Microsoft Quantum Development Kit](https://docs.microsoft.com/en-us/quantum/)
+- [IBM Quantum Experience](https://quantum-computing.ibm.com/)
+
+### TypeScript & Node.js
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
+- [Node.js Documentation](https://nodejs.org/en/docs/)
+- [Jest Testing Framework](https://jestjs.io/docs/getting-started)
+
+### Quantum Libraries
+- [quantum-circuit.js](https://github.com/perak/quantum-circuit) - Our primary quantum simulation library
+- [Q.js](https://github.com/stewdio/q.js) - Alternative quantum computing library
+- [Cirq](https://quantumai.google/cirq) - Google's quantum computing framework
+
+## 🏆 **Contribution Ideas**
+
+### Beginner-Friendly
+- Add new quantum keywords to NLP parser
+- Write tutorial content
+- Improve error messages
+- Add code examples to documentation
+
+### Intermediate
+- Implement new quantum algorithms
+- Add quantum visualization features
+- Improve test coverage
+- Optimize performance
+
+### Advanced
+- Add quantum error correction
+- Implement quantum machine learning algorithms
+- Add cloud quantum hardware integration
+- Develop quantum debugging tools
+
+## 📋 **Issue Templates**
+
+### Bug Report
+```markdown
+**Describe the bug**
+A clear description of what the bug is.
+
+**Quantum Context**
+- Algorithm: [e.g., Grover, Bell State]
+- Qubits: [e.g., 4]
+- Expected quantum behavior: [e.g., 50/50 probability]
+
+**To Reproduce**
+Steps to reproduce the behavior:
+1. Run command '...'
+2. Enter description '...'
+3. See error
+
+**Expected behavior**
+What you expected to happen.
+
+**Environment:**
+- OS: [e.g., macOS, Ubuntu]
+- Node.js version: [e.g., 18.17.0]
+- Package version: [e.g., 1.2.3]
+```
+
+### Feature Request
+```markdown
+**Quantum Algorithm/Feature**
+What quantum algorithm or feature would you like to see?
+
+**Use Case**
+Describe your use case and why this would be valuable.
+
+**Implementation Ideas**
+Any ideas on how this could be implemented?
+
+**Educational Value**
+How would this help people learn quantum computing?
+```
+
+## 🎉 **Recognition**
+
+### Hall of Fame
+Special thanks to our quantum computing contributors:
+
+- **Dr. Elena Vasquez** - Quantum algorithms and educational content
+- **Community Contributors** - Your name could be here!
+
+### Contribution Types
+We recognize all types of contributions:
+- 💻 Code contributions
+- 📚 Documentation improvements
+- 🐛 Bug reports and fixes
+- 💡 Feature suggestions
+- 🎓 Educational content
+- 🧪 Testing and quality assurance
+- 🌐 Community support
+
+## 📞 **Getting Help**
+
+### Stuck on Quantum Concepts?
+- Check our [quantum tutorials](docs/AI_BOT_SYSTEM.md)
+- Ask in GitHub Discussions
+- Reference the learning resources above
+
+### Technical Issues?
+- Check existing GitHub Issues
+- Run `npm run bot quantum --help` for CLI help
+- Look at the test files for usage examples
+
+### Want to Chat?
+- Open a GitHub Discussion
+- Comment on relevant issues
+- Join our community calls (announced in Discussions)
+
+---
+
+**Thank you for contributing to making quantum computing more accessible! 🚀⚛️**
+
+Every contribution, no matter how small, helps advance the field of quantum computing and makes it more accessible to developers worldwide.
