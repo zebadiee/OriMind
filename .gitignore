@@ -1,45 +1,29 @@
 # Python
 __pycache__/
 *.py[cod]
-*$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
+.python-version
 *.egg-info/
-.installed.cfg
-*.egg
-
-# Virtual environments
+dist/
+build/
+.env
+.venv/
 venv/
-ENV/
-env/
-.venv
 
-# IDE
+# Logs
+*.log
+*.logs
+
+# IDEs
 .vscode/
 .idea/
+
+# System
+.DS_Store
 *.swp
 *.swo
-.DS_Store
 
-# Project specific
-*.log
-.env
-.env.local
-*.lock
-
-# Spec Kit-specific files
-.genreleases/
-*.zip
-sdd-*/
+# Project-specific
+/rituals/reconstructions/*.log
+/autosync/*.tmp
+coverage_report/
+coverage.svg
