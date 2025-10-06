@@ -1,37 +1,32 @@
 version: '3.8'
-services:
-  mongodb:
-    image: mongo:latest
-    container_name: sherlock-mongodb
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongodb_data:/data/db
-    environment:
-      - MONGO_INITDB_DATABASE=sherlock
-    healthcheck:
-      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
-    restart: unless-stopped
 
-  redis:
-    image: redis:alpine
-    container_name: sherlock-redis
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis_data:/data
+services:
+  reliakit_core:
+    build: .
     restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - reliakit_memory:/app/memory_data
+    command: python tk_meta_loop.py
+
+  ollama:
+    image: ollama/ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+
+  dashboard:
+    build:
+      context: ./modules/dashboard
+    container_name: reliakit_dashboard
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./reliakit:/app/reliakit
+      - ./generated_configs:/app/generated_configs
+    depends_on:
+      - reliakit_core
 
 volumes:
-  mongodb_data:
-    driver: local
-  redis_data:
-    driver: local
-
-networks:
-  default:
-    name: sherlock-network
+  reliakit_memory:
