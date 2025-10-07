@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OriMind Universal MCP Builder</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .header { text-align: center; margin-bottom: 40px; }
+        .header h1 { font-size: 3rem; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .builder-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+        .btn {
+            background: linear-gradient(45deg, #ff6b6b, #ffa500);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 OriMind Universal MCP Builder</h1>
+            <p>The ultimate AI-powered assistant for building Model Context Protocol servers</p>
+        </div>
+        <div class="builder-section">
+            <h2> Create New MCP</h2>
+            <form id="mcpForm">
+                <div>
+                    <label>MCP Name:</label>
+                    <input type="text" id="mcpName" placeholder="My Awesome MCP" required>
+                </div>
+                <div>
+                    <label>Description:</label>
+                    <textarea id="mcpDescription" rows="4" placeholder="Describe what your MCP should do..." required></textarea>
+                </div>
+                <button type="submit" class="btn">🎯 Create MCP</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('mcpForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = {
+                name: document.getElementById('mcpName').value,
+                description: document.getElementById('mcpDescription').value
+            };
+            
+            try {
+                const response = await fetch('/api/create-mcp', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                const result = await response.json();
+                alert(response.ok ? result.message : 'Error: ' + result.error);
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        });
+    </script>
+</body>
+</html>
