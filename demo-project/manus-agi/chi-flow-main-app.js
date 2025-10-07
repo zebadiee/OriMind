@@ -268,8 +268,7 @@ class ChiFlowMainApp {
         }
         
         try {
-            // Message flows to target service
-            const fetch = require('node-fetch');
+            // Message flows to target service - Using built-in fetch (Node 18+)
             const response = await fetch(`${endpoint}/api/message`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -449,7 +448,7 @@ class ChiFlowMainApp {
         const statusPromises = services.map(async (service) => {
             try {
                 const ports = { mcp: 8000, ide: 3000, dashboard: 5000 };
-                const fetch = require('node-fetch');
+                // Using built-in fetch (Node 18+) instead of node-fetch
                 const response = await fetch(`http://localhost:${ports[service]}/api/health`, {
                     timeout: 3000
                 });
