@@ -1,0 +1,25 @@
+{
+  "name": "sherlock-omega-ide",
+  "version": "1.0.0",
+  "description": "OriMind Sherlock Omega IDE - Advanced Development Environment",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js",
+    "start": "NODE_ENV=production node index.js",
+    "build": "echo 'Building Sherlock IDE...'",
+    "test": "echo 'Testing Sherlock IDE...'"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "ws": "^8.13.0",
+    "cors": "^2.8.5",
+    "helmet": "^7.0.0",
+    "compression": "^1.7.4"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "keywords": ["ide", "development", "orimind", "ai"],
+  "author": "OriMind Team",
+  "license": "MIT"
+}
